@@ -10,4 +10,6 @@ public interface UserDao {
     Optional<User> fetchById(Long id);
     Optional<User> fetchByMail(String mail);
     Optional<User> fetchByUsername(String username);
+    Set<User> fetchByUsernameOrEmail(String username, String email);
+    User save(User user);
 }

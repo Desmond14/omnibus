@@ -119,4 +119,46 @@ public class UserDaoImplTest {
         Optional<User> user = userDao.fetchByUsername("user2");
         assertThat(user.isPresent(), is(false));
     }
+
+    @Test
+    public void shouldFetchOneByUsernameAndOneByEmail() {
+        Set<User> users = userDao.fetchByUsernameOrEmail("user1", "user3@wp.pl");
+        assertThat(users.size(), is(equalTo(2)));
+    }
+
+    @Test
+    public void shouldFetchOnlyByUsername() {
+        Set<User> users = userDao.fetchByUsernameOrEmail("user1", "user2@wp.pl");
+        assertThat(users.size(), is(equalTo(1)));
+        assertThat(users.iterator().next().getUsername(), is(equalTo("user1")));
+    }
+
+    @Test
+    public void shouldFetchOnlyByEmail() {
+        Set<User> users = userDao.fetchByUsernameOrEmail("user2", "user3@wp.pl");
+        assertThat(users.size(), is(equalTo(1)));
+        assertThat(users.iterator().next().getMailAddress(), is(equalTo("user3@wp.pl")));
+    }
+
+    @Test
+    public void shouldReturnEmptySetWhenConditionNotMatched() {
+        Set<User> users = userDao.fetchByUsernameOrEmail("user2", "user2@wp.pl");
+        assertThat(users, is(notNullValue()));
+        assertThat(users.isEmpty(), is(true));
+    }
+
+    @Test
+    public void shouldSaveNewUserAndReturnId() {
+        User savedUser = userDao.save(new User("user4", "password", "user4@onet.pl"));
+        assertThat(savedUser, is(notNullValue()));
+        assertThat(savedUser.getId(), is(notNullValue()));
+    }
+
+//    private User createUser(String username, String password, String email) {
+//        User user = new User();
+//        user.setPassword(password);
+//        user.setMailAddress(email);
+//        user.setUsername(username);
+//        return user;
+//    }
 }
