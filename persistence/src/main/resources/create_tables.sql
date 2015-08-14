@@ -1,4 +1,4 @@
-create table users(
+create table USERS(
   ID BIGSERIAL PRIMARY KEY NOT NULL,
   USERNAME varchar(20) UNIQUE NOT NULL,
   EMAIL varchar(50) UNIQUE NOT NULL,
