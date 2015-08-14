@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <users id="1" username="user1" email="user1@wp.pl" password="password"/>
+  <users id="3" username="user3" email="user3@wp.pl" password="password"/>
+</dataset>
