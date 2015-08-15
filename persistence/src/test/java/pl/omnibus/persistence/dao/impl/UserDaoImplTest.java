@@ -8,10 +8,13 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.omnibus.domain.User;
-import javax.annotation.Resource;
+
+import javax.sql.DataSource;
 import java.util.Optional;
 import java.util.Set;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -19,8 +22,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-@ContextConfiguration(locations = "/daos.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = DataSourceAutoConfiguration.class)
 public class UserDaoImplTest {
     private static final String JDBC_DRIVER = org.postgresql.Driver.class.getName();
     private static final String JDBC_URL = "jdbc:postgresql:omnibus";
@@ -28,11 +31,13 @@ public class UserDaoImplTest {
     private static final String PASSWORD = "omnibus123";
     private static final String DATASET_FILE = "/dataset.xml";
 
-    @Resource(name = "userDao")
+    @Autowired
+    private DataSource dataSource;
     private UserDaoImpl userDao;
 
     @Before
     public void setUp() throws Exception {
+        userDao = new UserDaoImpl(dataSource);
         cleanlyInsert(readDataSet());
     }
 
@@ -154,11 +159,4 @@ public class UserDaoImplTest {
         assertThat(savedUser.getId(), is(notNullValue()));
     }
 
-//    private User createUser(String username, String password, String email) {
-//        User user = new User();
-//        user.setPassword(password);
-//        user.setMailAddress(email);
-//        user.setUsername(username);
-//        return user;
-//    }
 }

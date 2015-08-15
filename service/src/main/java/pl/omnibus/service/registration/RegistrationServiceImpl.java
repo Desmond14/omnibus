@@ -1,14 +1,18 @@
 package pl.omnibus.service.registration;
 
 import org.apache.commons.validator.routines.EmailValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.omnibus.domain.User;
 import pl.omnibus.persistence.dao.UserDao;
 import java.util.Set;
 
+@Service
 public class RegistrationServiceImpl implements RegistrationService {
     private final EmailValidator emailValidator = EmailValidator.getInstance();
     private final UserDao userDao;
 
+    @Autowired
     public RegistrationServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }

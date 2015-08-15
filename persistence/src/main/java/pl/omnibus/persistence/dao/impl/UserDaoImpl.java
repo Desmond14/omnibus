@@ -3,6 +3,8 @@ package pl.omnibus.persistence.dao.impl;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import pl.omnibus.domain.User;
 import pl.omnibus.persistence.dao.UserDao;
 
@@ -13,10 +15,12 @@ import java.util.Optional;
 import java.util.Set;
 import static pl.omnibus.persistence.jooq.Tables.USERS;
 
+@Repository
 public class UserDaoImpl implements UserDao {
     private final DataSource dataSource;
     private final DSLContext create;
 
+    @Autowired
     public UserDaoImpl(DataSource dataSource) throws SQLException {
         this.dataSource = dataSource;
         this.create = DSL.using(dataSource.getConnection(), SQLDialect.POSTGRES_9_4);

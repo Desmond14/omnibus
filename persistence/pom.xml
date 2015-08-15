@@ -32,14 +32,8 @@
             <version>3.6.1</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
-            <version>2.1.1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -53,15 +47,14 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
-                <!-- Specify the maven code generator plugin -->
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
                 <version>3.6.2</version>
 
-                <!-- The plugin should hook into the generate goal -->
                 <executions>
                     <execution>
                         <goals>
@@ -78,18 +71,14 @@
                     </dependency>
                 </dependencies>
 
-                <!-- Specify the plugin configuration.
-                     The configuration format is the same as for the standalone code generator -->
                 <configuration>
-                    <!-- JDBC connection parameters -->
                     <jdbc>
-                        <driver>org.postgresql.Driver</driver>
-                        <url>jdbc:postgresql:omnibus</url>
-                        <user>omnibus</user>
-                        <password>omnibus123</password>
+                        <driver>${spring.datasource.driver-class-name}</driver>
+                        <url>${spring.datasource.url}</url>
+                        <user>${spring.datasource.username}</user>
+                        <password>${spring.datasource.password}</password>
                     </jdbc>
 
-                    <!-- Generator parameters -->
                     <generator>
                         <name>org.jooq.util.JavaGenerator</name>
                         <database>
