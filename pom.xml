@@ -20,24 +20,7 @@
         <module>domain</module>
         <module>service</module>
         <module>web</module>
-        <module>main</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-        </dependency>
-    </dependencies>
 
     <properties>
         <java.version>1.8</java.version>
@@ -45,7 +28,17 @@
         <spring.datasource.username>omnibus</spring.datasource.username>
         <spring.datasource.password>omnibus123</spring.datasource.password>
         <spring.datasource.driver-class-name>org.postgresql.Driver</spring.datasource.driver-class-name>
+        <start-class>pl.omnibus.Application</start-class>
+        <jooq.version>3.6.1</jooq.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -58,10 +51,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
+
 </project>
