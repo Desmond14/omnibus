@@ -30,6 +30,7 @@
         <spring.datasource.driver-class-name>org.postgresql.Driver</spring.datasource.driver-class-name>
         <start-class>pl.omnibus.Application</start-class>
         <jooq.version>3.6.1</jooq.version>
+        <guava.version>18.0</guava.version>
     </properties>
 
     <dependencies>
@@ -37,6 +38,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
     </dependencies>
 
