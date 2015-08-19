@@ -1,10 +1,5 @@
 package pl.omnibus.persistence.dao.impl;
 
-import org.dbunit.IDatabaseTester;
-import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.operation.DatabaseOperation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,24 +8,18 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.omnibus.domain.User;
+import pl.omnibus.persistence.dao.DaoTestBase;
 
 import javax.sql.DataSource;
 import java.util.Optional;
 import java.util.Set;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = DataSourceAutoConfiguration.class)
-public class UserDaoImplTest {
-    private static final String JDBC_DRIVER = org.postgresql.Driver.class.getName();
-    private static final String JDBC_URL = "jdbc:postgresql:omnibus";
-    private static final String USER = "omnibus";
-    private static final String PASSWORD = "omnibus123";
-    private static final String DATASET_FILE = "/dataset.xml";
-
+public class UserDaoImplTest extends DaoTestBase{
     @Autowired
     private DataSource dataSource;
     private UserDaoImpl userDao;
@@ -38,20 +27,7 @@ public class UserDaoImplTest {
     @Before
     public void setUp() throws Exception {
         userDao = new UserDaoImpl(dataSource);
-        cleanlyInsert(readDataSet());
-    }
-
-    private IDataSet readDataSet() throws Exception {
-        return new FlatXmlDataSetBuilder().build(
-                getClass().getResourceAsStream(DATASET_FILE)
-        );
-    }
-
-    private void cleanlyInsert(IDataSet dataSet) throws Exception {
-        IDatabaseTester databaseTester = new JdbcDatabaseTester(JDBC_DRIVER, JDBC_URL, USER, PASSWORD);
-        databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
-        databaseTester.setDataSet(dataSet);
-        databaseTester.onSetup();
+        prepareDatabase();
     }
 
     @Test

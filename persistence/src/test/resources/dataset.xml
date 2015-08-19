@@ -2,4 +2,12 @@
 <dataset>
   <users id="1" username="user1" email="user1@wp.pl" password="password"/>
   <users id="3" username="user3" email="user3@wp.pl" password="password"/>
+  <questions id="1" author_id="1" content="Question 1" category="MATHS" question_type="SINGLE_CHOICE"/>
+  <questions id="2" author_id="1" content="Question 2" category="SCIENCE" question_type="OPEN"/>
+  <questions id="3" author_id="3" content="Question 3" category="MUSIC" question_type="MULTIPLE_CHOICE"/>
+  <answers id="46" question_id="1" content="Answer 1" is_correct="true"/>
+  <answers id="47" question_id="1" content="Answer 2" is_correct="false"/>
+  <answers id="48" question_id="2" content="Answer 3" is_correct="true"/>
+  <answers id="49" question_id="2" content="Answer 4" is_correct="true"/>
+  <answers id="50" question_id="3" content="Answer 5" is_correct="true"/>
 </dataset>
